@@ -40,13 +40,13 @@ val fr = TF2(new Run)
 /*
 // prety-printer
 class Print extends SYM {
-  type Repr[_] = String
+  type Repr[A] = String
 
   def int(n: Int) = n.toString
   def add(x: String)(y: String) = x + "+" + y
 
-  def lam[A, B](f: String => String): String => String = f
-  def app[A, B](f: String => String)(x: String) = f(x)
+  def lam[A, B](f: A => B) = f
+  def app[A, B](f: A => B)(x: A) = f(x)
 }
 */
 
