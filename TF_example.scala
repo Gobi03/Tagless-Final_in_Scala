@@ -37,18 +37,18 @@ def TF2(S: SYM) = {
 val fr = TF2(new Run)
 
 
-/*
+
 // prety-printer
 class Print extends SYM {
   type Repr[A] = String
 
   def int(n: Int) = n.toString
-  def add(x: String)(y: String) = x + "+" + y
+  def add(x: String)(y: String) = "(" + x + " + " + y + ")"
 
-  def lam[A, B](f: A => B) = f
-  def app[A, B](f: A => B)(x: A) = f(x)
+  def lam[A, B](f: String => String) = f( "x")
+  def app[A, B](f: String)(x: String) = "(" + f + " " + x + ")"
 }
-*/
+ */
 
 
 // extending multi
