@@ -45,10 +45,10 @@ class Print extends SYM {
   def int(n: Int) = n.toString
   def add(x: String)(y: String) = "(" + x + " + " + y + ")"
 
-  def lam[A, B](f: String => String) = f( "x")
+  def lam[A, B](f: String => String) = f("x")
   def app[A, B](f: String)(x: String) = "(" + f + " " + x + ")"
 }
- */
+
 
 
 // extending multi
