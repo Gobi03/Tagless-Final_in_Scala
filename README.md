@@ -1,6 +1,6 @@
 # Tagless-FinalのScala実装
 
-Tagless-Final法[1]のScala実装の簡単な例を載せました。
+ScalaによるTagless-Final法[1]の簡単な実装例.
 
 
 
