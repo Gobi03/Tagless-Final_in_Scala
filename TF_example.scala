@@ -29,6 +29,7 @@ def TF1(S: SYM) = {
 
 val ar = TF1(new Run)
 
+// \x.\y.(f x) y = \x.\y.x + y
 def TF2(S: SYM) = {
   import S._
   val f = lam((x: Repr[Int]) => (lam((y: Repr[Int]) => add(x)(y))))
@@ -40,13 +41,19 @@ val fr = TF2(new Run)
 
 // prety-printer
 class Print extends SYM {
+  var index = -1
+
   type Repr[A] = String
 
   def int(n: Int) = n.toString
   def add(x: String)(y: String) = "(" + x + " + " + y + ")"
 
-  def lam[A, B](f: String => String) = f("x")
-  def app[A, B](f: String)(x: String) = "(" + f + " " + x + ")"
+  def lam[A, B](f: String => String) = {
+    index += 1
+    val v = "x"+index
+    "\\" + v + "." + f(v)
+  }
+  def app[A, B](f: String)(x: String) = "((" + f + ") " + x + ")"
 }
 
 
