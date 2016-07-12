@@ -1,14 +1,12 @@
 import scala.language.higherKinds
 
 trait SYM {
-  type Repr[_]
+  type Repr[A]
 
   def int(n: Int): Repr[Int]
   def add(x: Repr[Int])(y: Repr[Int]): Repr[Int]
-
-  def lam[A, B](f: Repr[A] => Repr[B]): Repr[A => B]
-  def app[A, B](f: Repr[A => B])(x: Repr[A]): Repr[B]
 }
+
 
 // evaluator
 class Run extends SYM {
@@ -16,10 +14,8 @@ class Run extends SYM {
 
   def int(n: Int) = n
   def add(x: Int)(y: Int) = x + y
-
-  def lam[A, B](f: A => B) = f
-  def app[A, B](f: A => B)(x: A) = f(x)
 }
+
 
 // example
 def TF1(S: SYM) = {
@@ -29,33 +25,15 @@ def TF1(S: SYM) = {
 
 val ar = TF1(new Run)
 
-// \x.\y.(f x) y = \x.\y.x + y
-def TF2(S: SYM) = {
-  import S._
-  val f = lam((x: Repr[Int]) => (lam((y: Repr[Int]) => add(x)(y))))
-  (x: Int) => ((y: Int) => app (app(f)(int(x))) (int(y)))
-}
-val fr = TF2(new Run)
-
-
-
 // prety-printer
 class Print extends SYM {
-  var index = -1
-
   type Repr[A] = String
 
   def int(n: Int) = n.toString
   def add(x: String)(y: String) = "(" + x + " + " + y + ")"
-
-  def lam[A, B](f: String => String) = {
-    index += 1
-    val v = "x" + index
-    "\\" + v + "." + f(v)
-  }
-  def app[A, B](f: String)(x: String) = "((" + f + ") " + x + ")"
 }
 
+val ap = TF1(new Print)
 
 
 // extending multi
@@ -67,11 +45,10 @@ class MultiRun extends Run with MultiSYM {
   def multi(x: Int)(y: Int) = x * y
 }
 
-
-def TF3(S: MultiSYM) = {
+def TF2(S: MultiSYM) = {
   import S._
   multi(int(3))(int(5))
 }
 
-val arm  = TF3(new MultiRun)
-val arm2 = TF1(new MultiRun)
+val br  = TF2(new MultiRun)
+val ar2 = TF1(new MultiRun)

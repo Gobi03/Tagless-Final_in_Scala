@@ -1,5 +1,4 @@
 sealed abstract class Repr
-
 case class IInt(n: Int) extends Repr
 case class INeg(a: Repr) extends Repr
 case class IAdd(a: Repr, b: Repr) extends Repr

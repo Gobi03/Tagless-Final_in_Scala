@@ -21,3 +21,11 @@ val fi1P = add(int(1), add(int(5), neg(int(3))))
 
 // -(-(3 + (-(-(-1)))))
 val fi2P = neg(neg(add(int(3), neg(neg(neg(int(1)))))))
+
+
+// // optimization
+// sealed abstract class Ctx
+// case class Pos() extends Ctx
+// case class Neg() extends Ctx
+
+// type Repr = (Ctx => Repr)
